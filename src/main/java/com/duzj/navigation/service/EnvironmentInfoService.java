@@ -9,5 +9,9 @@ import com.duzj.navigation.entity.EnvironmentInfo;
 * @createDate 2023-11-09 10:17:44
 */
 public interface EnvironmentInfoService extends IService<EnvironmentInfo> {
-
+    /**
+     * 删除前需要校验是否有链接存在,如果有无法删除
+     * @param id 环境主键
+     */
+    public boolean deleteEnvironment(int id);
 }
