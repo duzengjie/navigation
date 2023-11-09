@@ -1,0 +1,28 @@
+package com.duzj.navigation.entity.request;
+
+import lombok.Data;
+
+/**
+ * @Description
+ * @Date 2023/11/9 15:43
+ * @Created by duzengjie
+ */
+@Data
+public class UrlInfoRequest {
+    private Integer id;
+
+    /**
+     * 环境 id
+     */
+    private Integer environmentId;
+
+    /**
+     * 地址
+     */
+    private String url;
+
+    /**
+     * 备注
+     */
+    private String remark;
+}
