@@ -51,7 +51,7 @@ const props = defineProps({
   remark: String,
 });
 const jump = () => {
-  window.open(this.url, "_blank")
+  window.open(props.url, "_blank")
 };
 const open = (message) => {
   ElMessageBox.alert(message, "备注", { confirmButtonText: "OK" })
