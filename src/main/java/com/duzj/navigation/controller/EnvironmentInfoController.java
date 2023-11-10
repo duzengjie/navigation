@@ -1,13 +1,18 @@
 package com.duzj.navigation.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.duzj.navigation.entity.EnvironmentInfo;
+import com.duzj.navigation.entity.UrlInfo;
 import com.duzj.navigation.entity.base.ResultDTO;
 import com.duzj.navigation.entity.request.EnvironmentInfoRequest;
+import com.duzj.navigation.entity.response.EnvironmentUrlListResponse;
 import com.duzj.navigation.service.EnvironmentInfoService;
+import com.duzj.navigation.service.UrlInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,10 +27,23 @@ public class EnvironmentInfoController {
 
     @Autowired
     private EnvironmentInfoService environmentInfoService;
+    @Autowired
+    private UrlInfoService urlInfoService;
 
     @GetMapping(value = "/api/list")
-    public ResultDTO<List<EnvironmentInfo>> listApi(){
-        return ResultDTO.success(environmentInfoService.list());
+    public ResultDTO<List<EnvironmentUrlListResponse>> listApi(){
+        List<EnvironmentUrlListResponse> responses = new ArrayList<>();
+        List<EnvironmentInfo> environmentInfoList = environmentInfoService.list();
+        for (EnvironmentInfo environmentInfo : environmentInfoList) {
+            EnvironmentUrlListResponse response = new EnvironmentUrlListResponse();
+            QueryWrapper<UrlInfo> urlInfoQueryWrapper = new QueryWrapper<>();
+            urlInfoQueryWrapper.eq("environment_id",environmentInfo.getId());
+            response.setId(environmentInfo.getId());
+            response.setName(environmentInfo.getName());
+            response.setData(urlInfoService.list(urlInfoQueryWrapper));
+            responses.add(response);
+        }
+        return ResultDTO.success(responses);
     }
 
     @GetMapping(value = "/api/delete")
