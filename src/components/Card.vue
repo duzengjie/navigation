@@ -49,7 +49,7 @@
 
 
 <script setup>
-import { defineComponent,reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 let updateCardDialogVisible = ref(false)
 import requestService from "../http/request";

@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="editableTabsValue" class="tabs" editable @edit="handleTabsEdit">
+  <el-tabs v-model="editableTabsValue" class="tabs">
     <el-tab-pane :label="item.name" :name="item.id" v-for="item in editableTabs" :key="item.id">
       <el-row :gutter="20">
         <el-col :span="6" v-for="url in item.data" :key="url.name">
@@ -10,11 +10,9 @@
   </el-tabs>
 </template>
 <script  setup>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import Card from "./Card.vue";
 import requestService from "../http/request";
-let tabIndex = 2
-let refresh = reactive({ showRefresh: true })
 //默认选择第一个
 const editableTabsValue = ref(1)
 //标签
@@ -36,38 +34,6 @@ const getData = () => {
  * 初始化数据
  */
 getData();
-
-
-const handleTabsEdit = (
-  targetName,
-  action
-) => {
-  if (action === 'add') {
-    const newTabName = `${++tabIndex}`
-    editableTabs.value.push({
-      title: 'New Tab',
-      name: newTabName,
-      content: 'New Tab content',
-    })
-    editableTabsValue.value = newTabName
-  } else if (action === 'remove') {
-    const tabs = editableTabs.value
-    let activeName = editableTabsValue.value
-    if (activeName === targetName) {
-      tabs.forEach((tab, index) => {
-        if (tab.name === targetName) {
-          const nextTab = tabs[index + 1] || tabs[index - 1]
-          if (nextTab) {
-            activeName = nextTab.name
-          }
-        }
-      })
-    }
-
-    editableTabsValue.value = activeName
-    editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
-  }
-}
 </script>
 <style>
 .tabs>.el-tabs__content {
@@ -78,13 +44,18 @@ const handleTabsEdit = (
 }
 
 .el-row {
-  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.el-row:last-child {
+  margin-bottom: 0;
+}
+.el-col {
+  border-radius: 4px;
 }
 
-.el-col {
-  flex-basis: 0;
-  flex-grow: 1;
-  max-width: 100%;
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
 }
 </style>
   
