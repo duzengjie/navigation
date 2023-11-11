@@ -3,7 +3,7 @@
     <template #header>
       <div class="card-header">
         <span
-          ><el-text truncated>{{ name }}</el-text></span
+          ><el-text truncated >{{ name }}</el-text></span
         >
         <div>
           <el-button class="button" type="primary" text @click="jump"
@@ -17,7 +17,7 @@
     </template>
     <div style="height: 50px" @click="open(remark)">
       <span class="text item">
-        <el-text truncated>{{ remark }}</el-text>
+        <el-text truncated size="small" type="info">{{ remark }}</el-text>
       </span>
     </div>
   </el-card>
