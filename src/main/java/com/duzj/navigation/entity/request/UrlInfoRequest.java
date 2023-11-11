@@ -1,5 +1,6 @@
 package com.duzj.navigation.entity.request;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 /**
@@ -25,4 +26,9 @@ public class UrlInfoRequest {
      * 备注
      */
     private String remark;
+
+    /**
+     * url名称
+     */
+    private String urlName;
 }
