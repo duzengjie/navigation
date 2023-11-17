@@ -8,15 +8,54 @@
       </el-row>
     </el-tab-pane>
   </el-tabs>
+
+  <el-dropdown  class="float-button" split-button type="primary" @click="addCardDialogVisible = true">
+    新增卡片
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item>新增TAB</el-dropdown-item>
+        <el-dropdown-item>备份数据</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+
+  <el-dialog v-model="addCardDialogVisible" title="新增卡片">
+    <el-form label-width="50px">
+      <el-form-item label="链接">
+        <el-input v-model="addCardForm.url" />
+      </el-form-item>
+
+      <el-form-item label="名称">
+        <el-input v-model="addCardForm.urlName" />
+      </el-form-item>
+
+      <el-form-item label="备注">
+        <el-input v-model="addCardForm.remark" type="textarea"/>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="addCardDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="addCard">
+          确认
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 <script  setup>
-import { ref } from "vue";
+import { ref,reactive } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 import Card from "./Card.vue";
 import requestService from "../http/request";
 //默认选择第一个
 const editableTabsValue = ref(1)
 //标签
 const editableTabs = ref([])
+//新增卡片弹窗
+const addCardDialogVisible = ref(false)
+//新增卡片表单
+const addCardForm = reactive({url:"http://"})
 /**
  * 获取数据方法
  */
@@ -26,9 +65,31 @@ const getData = () => {
     method: 'get'
   }).then((res) => {
     editableTabs.value = res.data.data;
-    //防止id1删除之后 无法默认选择到
-    editableTabsValue.value = res.data.data[0].id
   });
+}
+/**
+ * 新增卡片
+ */
+const addCard = () =>{
+  requestService({
+  url: "/url/api/add",
+  method: 'post',
+  data:{environmentId:editableTabsValue.value,url:addCardForm.url,remark:addCardForm.remark,urlName:addCardForm.urlName}
+}).then((res) => {
+  if(res.data.data == true){
+    ElMessage({message:'新增成功',type:'success'})
+  }else{
+    ElMessage(res.data.msg)
+  }
+  //关闭弹窗
+  addCardDialogVisible.value = false
+  //重置
+  addCardForm.url = "http://"
+  addCardForm.remark = null
+  addCardForm.urlName = null
+  //刷新页面
+  getData();
+});
 }
 /**
  * 初始化数据
@@ -56,6 +117,12 @@ getData();
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
+}
+
+.float-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 </style>
   

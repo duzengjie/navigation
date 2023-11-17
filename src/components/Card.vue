@@ -28,7 +28,7 @@
         <el-input v-model="form.url" />
       </el-form-item>
 
-      <el-form-item label="姓名">
+      <el-form-item label="名称">
         <el-input v-model="form.urlName" />
       </el-form-item>
 
