@@ -13,7 +13,7 @@
     新增卡片
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item>新增TAB</el-dropdown-item>
+        <el-dropdown-item @click="addTabDialogVisible = true">新增TAB</el-dropdown-item>
         <el-dropdown-item>备份数据</el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -42,6 +42,22 @@
       </span>
     </template>
   </el-dialog>
+
+  <el-dialog v-model="addTabDialogVisible" title="新增TAB">
+    <el-form label-width="50px">
+      <el-form-item label="名称">
+        <el-input v-model="addTabForm.name" />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="addTabDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="addTab">
+          确认
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 <script  setup>
 import { ref,reactive } from "vue";
@@ -54,8 +70,12 @@ const editableTabsValue = ref(1)
 const editableTabs = ref([])
 //新增卡片弹窗
 const addCardDialogVisible = ref(false)
+//新增TAB弹窗
+const addTabDialogVisible = ref(false)
 //新增卡片表单
 const addCardForm = reactive({url:"http://"})
+//新增TAB
+const addTabForm = reactive({})
 /**
  * 获取数据方法
  */
@@ -87,6 +107,28 @@ const addCard = () =>{
   addCardForm.url = "http://"
   addCardForm.remark = null
   addCardForm.urlName = null
+  //刷新页面
+  getData();
+});
+}
+/**
+ * 新增tab
+ */
+ const addTab = () =>{
+  requestService({
+  url: "/env/api/add",
+  method: 'post',
+  data:{name:addTabForm.name}
+}).then((res) => {
+  if(res.data.data == true){
+    ElMessage({message:'新增成功',type:'success'})
+  }else{
+    ElMessage(res.data.msg)
+  }
+  //关闭弹窗
+  addTabDialogVisible.value = false
+  //重置
+  addTabForm.name = null
   //刷新页面
   getData();
 });
