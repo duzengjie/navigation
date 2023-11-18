@@ -13,8 +13,9 @@
     新增卡片
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item @click="addTabDialogVisible = true">新增TAB</el-dropdown-item>
+        <el-dropdown-item @click="addTabDialogVisible = true">新增环境</el-dropdown-item>
         <el-dropdown-item>备份数据</el-dropdown-item>
+        <el-dropdown-item @click="delTabDialogVisible = true">删除环境</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -43,7 +44,7 @@
     </template>
   </el-dialog>
 
-  <el-dialog v-model="addTabDialogVisible" title="新增TAB">
+  <el-dialog v-model="addTabDialogVisible" title="新增环境">
     <el-form label-width="50px">
       <el-form-item label="名称">
         <el-input v-model="addTabForm.name" />
@@ -53,6 +54,22 @@
       <span class="dialog-footer">
         <el-button @click="addTabDialogVisible = false">取消</el-button>
         <el-button type="primary" @click="addTab">
+          确认
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+
+  <el-dialog v-model="delTabDialogVisible" title="删除环境">
+    <el-form label-width="50px">
+      <el-form-item label="名称">
+        <el-text  >{{editableTabs.find(tab =>{ return tab.id == editableTabsValue }).name}}</el-text>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="delTabDialogVisible = false">取消</el-button>
+        <el-button type="danger" @click="delTab">
           确认
         </el-button>
       </span>
@@ -70,8 +87,10 @@ const editableTabsValue = ref(1)
 const editableTabs = ref([])
 //新增卡片弹窗
 const addCardDialogVisible = ref(false)
-//新增TAB弹窗
+//新增环境弹窗
 const addTabDialogVisible = ref(false)
+//删除环境弹窗
+const delTabDialogVisible = ref(false)
 //新增卡片表单
 const addCardForm = reactive({url:"http://"})
 //新增TAB
@@ -112,7 +131,7 @@ const addCard = () =>{
 });
 }
 /**
- * 新增tab
+ * 新增环境
  */
  const addTab = () =>{
   requestService({
@@ -131,6 +150,26 @@ const addCard = () =>{
   addTabForm.name = null
   //刷新页面
   getData();
+});
+}
+/**
+ * 删除环境
+ */
+ const delTab = () =>{
+  requestService({
+  url: "/env/api/delete?id="+editableTabsValue.value,
+  method: 'get',
+}).then((res) => {
+  if(res.data.data == true){
+    ElMessage({message:'删除成功',type:'success'})
+    //刷新页面
+    getData();
+    editableTabsValue.value = 1
+  }else{
+    ElMessage(res.data.msg)
+  }
+  //关闭弹窗
+  delTabDialogVisible.value = false
 });
 }
 /**
