@@ -42,6 +42,9 @@
         <el-button type="primary" @click="updateCard">
           确认
         </el-button>
+        <el-button type="danger" @click="deleteCard">
+          删除
+        </el-button>
       </span>
     </template>
   </el-dialog>
@@ -94,6 +97,23 @@ const updateCard = () =>{
 }).then((res) => {
   if(res.data.data == true){
     ElMessage({message:'更新成功',type:'success'})
+  }else{
+    ElMessage(res.data.msg)
+  }
+  updateCardDialogVisible.value = false
+  emits('refreshParentPage') 
+});
+}
+/**
+ * 更新卡片
+ */
+ const deleteCard = () =>{
+  requestService({
+  url: "/url/api/delete?id="+form.id,
+  method: 'get'
+}).then((res) => {
+  if(res.data.data == true){
+    ElMessage({message:'删除成功',type:'success'})
   }else{
     ElMessage(res.data.msg)
   }
