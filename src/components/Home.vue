@@ -98,12 +98,15 @@ const addTabForm = reactive({})
 /**
  * 获取数据方法
  */
-const getData = () => {
+const getData = (initFlag) => {
   requestService({
     url: "/env/api/list",
     method: 'get'
   }).then((res) => {
     editableTabs.value = res.data.data;
+    if(initFlag){
+      editableTabsValue.value = res.data.data[0].id
+    }
   });
 }
 /**
@@ -162,20 +165,20 @@ const addCard = () =>{
 }).then((res) => {
   if(res.data.data == true){
     ElMessage({message:'删除成功',type:'success'})
+    delTabDialogVisible.value = false
     //刷新页面
-    getData();
-    editableTabsValue.value = 1
+    getData(true);
   }else{
     ElMessage(res.data.msg)
+    //关闭弹窗
+    delTabDialogVisible.value = false
   }
-  //关闭弹窗
-  delTabDialogVisible.value = false
 });
 }
 /**
  * 初始化数据
  */
-getData();
+getData(true);
 </script>
 <style>
 .tabs>.el-tabs__content {
