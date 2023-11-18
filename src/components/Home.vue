@@ -14,8 +14,9 @@
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item @click="addTabDialogVisible = true">新增环境</el-dropdown-item>
-        <el-dropdown-item>备份数据</el-dropdown-item>
         <el-dropdown-item @click="delTabDialogVisible = true">删除环境</el-dropdown-item>
+        <el-dropdown-item>备份数据</el-dropdown-item>
+        <el-dropdown-item>恢复数据</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
