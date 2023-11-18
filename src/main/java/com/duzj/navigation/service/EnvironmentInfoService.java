@@ -2,6 +2,10 @@ package com.duzj.navigation.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.duzj.navigation.entity.EnvironmentInfo;
+import com.duzj.navigation.entity.EnvironmentUrlListDTO;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
 * @author duzengjie
@@ -14,4 +18,8 @@ public interface EnvironmentInfoService extends IService<EnvironmentInfo> {
      * @param id 环境主键
      */
     public boolean deleteEnvironment(int id);
+
+    public List<EnvironmentUrlListDTO> selectAll();
+
+    public void downloadAllByExcel(HttpServletResponse response);
 }

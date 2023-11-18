@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,5 +66,10 @@ public class EnvironmentInfoController {
         BeanUtils.copyProperties(request,environmentInfo);
         environmentInfo.setCreateTime(new Date());
         return ResultDTO.success( environmentInfoService.save(environmentInfo));
+    }
+
+    @GetMapping(value = "/api/downloadAllByExcel")
+    public void  downloadAllByExcel(HttpServletResponse response){
+        environmentInfoService.downloadAllByExcel( response);
     }
 }
