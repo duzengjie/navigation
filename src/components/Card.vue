@@ -2,16 +2,10 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span
-          ><el-text truncated >{{ name }}</el-text></span
-        >
+        <span><el-text truncated>{{ name }}</el-text></span>
         <div>
-          <el-button class="button" type="primary" text @click="jump"
-            >前往</el-button
-          >
-          <el-button class="button" type="success" text @click="openUpdateCarddDialog"
-            >更新</el-button
-          >
+          <el-button class="button" type="primary" text @click="jump">前往</el-button>
+          <el-button class="button" type="success" text @click="openUpdateCarddDialog">更新</el-button>
         </div>
       </div>
     </template>
@@ -33,19 +27,20 @@
       </el-form-item>
 
       <el-form-item label="备注">
-        <el-input v-model="form.remark" type="textarea"/>
+        <el-input v-model="form.remark" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="updateCardDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="updateCard">
-          确认
-        </el-button>
-        <el-button type="danger" @click="deleteCard">
-          删除
-        </el-button>
-      </span>
+      <el-row class="row-bg" justify="space-between">
+          <el-col :span="3"> 
+            <el-button type="danger" @click="deleteCard">删除</el-button>
+          </el-col>
+
+          <el-col :span="6"> 
+            <el-button @click="updateCardDialogVisible = false">取消</el-button>
+            <el-button type="primary" @click="updateCard">确认</el-button>
+          </el-col>
+        </el-row>
     </template>
   </el-dialog>
 </template>
@@ -65,7 +60,7 @@ const props = defineProps({
   remark: String,
 });
 
-const form = reactive({id:props.id,url:props.url,remark:props.remark,urlName:props.name})
+const form = reactive({ id: props.id, url: props.url, remark: props.remark, urlName: props.name })
 
 /**
  * 跳转链接
@@ -89,37 +84,37 @@ const openUpdateCarddDialog = () => {
 /**
  * 更新卡片
  */
-const updateCard = () =>{
+const updateCard = () => {
   requestService({
-  url: "/url/api/update",
-  method: 'post',
-  data:{id:form.id,url:form.url,remark:form.remark,urlName:form.urlName}
-}).then((res) => {
-  if(res.data.data == true){
-    ElMessage({message:'更新成功',type:'success'})
-  }else{
-    ElMessage(res.data.msg)
-  }
-  updateCardDialogVisible.value = false
-  emits('refreshParentPage') 
-});
+    url: "/url/api/update",
+    method: 'post',
+    data: { id: form.id, url: form.url, remark: form.remark, urlName: form.urlName }
+  }).then((res) => {
+    if (res.data.data == true) {
+      ElMessage({ message: '更新成功', type: 'success' })
+    } else {
+      ElMessage(res.data.msg)
+    }
+    updateCardDialogVisible.value = false
+    emits('refreshParentPage')
+  });
 }
 /**
  * 更新卡片
  */
- const deleteCard = () =>{
+const deleteCard = () => {
   requestService({
-  url: "/url/api/delete?id="+form.id,
-  method: 'get'
-}).then((res) => {
-  if(res.data.data == true){
-    ElMessage({message:'删除成功',type:'success'})
-  }else{
-    ElMessage(res.data.msg)
-  }
-  updateCardDialogVisible.value = false
-  emits('refreshParentPage') 
-});
+    url: "/url/api/delete?id=" + form.id,
+    method: 'get'
+  }).then((res) => {
+    if (res.data.data == true) {
+      ElMessage({ message: '删除成功', type: 'success' })
+    } else {
+      ElMessage(res.data.msg)
+    }
+    updateCardDialogVisible.value = false
+    emits('refreshParentPage')
+  });
 }
 </script>
 
@@ -143,5 +138,7 @@ const updateCard = () =>{
   margin-top: 20px;
   width: 400px;
 }
+
+
 </style>
   
