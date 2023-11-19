@@ -9,13 +9,13 @@
     </el-tab-pane>
   </el-tabs>
 
-  <el-dropdown  class="float-button" split-button type="primary" @click="addCardDialogVisible = true">
+  <el-dropdown class="float-button" split-button type="primary" @click="addCardDialogVisible = true">
     新增卡片
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item @click="addTabDialogVisible = true">新增环境</el-dropdown-item>
         <el-dropdown-item @click="delTabDialogVisible = true">删除环境</el-dropdown-item>
-        <el-dropdown-item>备份数据</el-dropdown-item>
+        <el-dropdown-item @click="downloadAllByExcel">备份数据</el-dropdown-item>
         <el-dropdown-item>恢复数据</el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -32,7 +32,7 @@
       </el-form-item>
 
       <el-form-item label="备注">
-        <el-input v-model="addCardForm.remark" type="textarea"/>
+        <el-input v-model="addCardForm.remark" type="textarea" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -64,7 +64,7 @@
   <el-dialog v-model="delTabDialogVisible" title="删除环境">
     <el-form label-width="50px">
       <el-form-item label="名称">
-        <el-text  >{{editableTabs.find(tab =>{ return tab.id == editableTabsValue }).name}}</el-text>
+        <el-text>{{ editableTabs.find(tab => { return tab.id == editableTabsValue }).name }}</el-text>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -78,7 +78,8 @@
   </el-dialog>
 </template>
 <script  setup>
-import { ref,reactive } from "vue";
+import { ref, reactive } from "vue";
+import moment from 'moment';
 import { ElMessage, ElMessageBox } from "element-plus";
 import Card from "./Card.vue";
 import requestService from "../http/request";
@@ -93,7 +94,7 @@ const addTabDialogVisible = ref(false)
 //删除环境弹窗
 const delTabDialogVisible = ref(false)
 //新增卡片表单
-const addCardForm = reactive({url:"http://"})
+const addCardForm = reactive({ url: "http://" })
 //新增TAB
 const addTabForm = reactive({})
 /**
@@ -105,7 +106,7 @@ const getData = (initFlag) => {
     method: 'get'
   }).then((res) => {
     editableTabs.value = res.data.data;
-    if(initFlag){
+    if (initFlag) {
       editableTabsValue.value = res.data.data[0].id
     }
   });
@@ -113,68 +114,89 @@ const getData = (initFlag) => {
 /**
  * 新增卡片
  */
-const addCard = () =>{
+const addCard = () => {
   requestService({
-  url: "/url/api/add",
-  method: 'post',
-  data:{environmentId:editableTabsValue.value,url:addCardForm.url,remark:addCardForm.remark,urlName:addCardForm.urlName}
-}).then((res) => {
-  if(res.data.data == true){
-    ElMessage({message:'新增成功',type:'success'})
-  }else{
-    ElMessage(res.data.msg)
-  }
-  //关闭弹窗
-  addCardDialogVisible.value = false
-  //重置
-  addCardForm.url = "http://"
-  addCardForm.remark = null
-  addCardForm.urlName = null
-  //刷新页面
-  getData();
-});
+    url: "/url/api/add",
+    method: 'post',
+    data: { environmentId: editableTabsValue.value, url: addCardForm.url, remark: addCardForm.remark, urlName: addCardForm.urlName }
+  }).then((res) => {
+    if (res.data.data == true) {
+      ElMessage({ message: '新增成功', type: 'success' })
+    } else {
+      ElMessage(res.data.msg)
+    }
+    //关闭弹窗
+    addCardDialogVisible.value = false
+    //重置
+    addCardForm.url = "http://"
+    addCardForm.remark = null
+    addCardForm.urlName = null
+    //刷新页面
+    getData();
+  });
 }
 /**
  * 新增环境
  */
- const addTab = () =>{
+const addTab = () => {
   requestService({
-  url: "/env/api/add",
-  method: 'post',
-  data:{name:addTabForm.name}
-}).then((res) => {
-  if(res.data.data == true){
-    ElMessage({message:'新增成功',type:'success'})
-  }else{
-    ElMessage(res.data.msg)
-  }
-  //关闭弹窗
-  addTabDialogVisible.value = false
-  //重置
-  addTabForm.name = null
-  //刷新页面
-  getData();
-});
+    url: "/env/api/add",
+    method: 'post',
+    data: { name: addTabForm.name }
+  }).then((res) => {
+    if (res.data.data == true) {
+      ElMessage({ message: '新增成功', type: 'success' })
+    } else {
+      ElMessage(res.data.msg)
+    }
+    //关闭弹窗
+    addTabDialogVisible.value = false
+    //重置
+    addTabForm.name = null
+    //刷新页面
+    getData();
+  });
 }
 /**
  * 删除环境
  */
- const delTab = () =>{
+const delTab = () => {
   requestService({
-  url: "/env/api/delete?id="+editableTabsValue.value,
-  method: 'get',
-}).then((res) => {
-  if(res.data.data == true){
-    ElMessage({message:'删除成功',type:'success'})
-    delTabDialogVisible.value = false
-    //刷新页面
-    getData(true);
-  }else{
-    ElMessage(res.data.msg)
-    //关闭弹窗
-    delTabDialogVisible.value = false
-  }
-});
+    url: "/env/api/delete?id=" + editableTabsValue.value,
+    method: 'get',
+  }).then((res) => {
+    if (res.data.data == true) {
+      ElMessage({ message: '删除成功', type: 'success' })
+      delTabDialogVisible.value = false
+      //刷新页面
+      getData(true);
+    } else {
+      ElMessage(res.data.msg)
+      //关闭弹窗
+      delTabDialogVisible.value = false
+    }
+  });
+}
+/**
+ * 下载文件
+ */
+const downloadAllByExcel = () => {
+  requestService({
+    url: "/env/api/downloadAllByExcel",
+    method: 'get',
+    responseType: 'blob'
+  }).then((res) => {
+    // 地址转换
+    let url = window.URL.createObjectURL(res.data);
+    // 文件名
+    let fileName = moment(new Date()).format('YYYY-MM-DD')+".xlsx";
+    const a = document.createElement("a");
+    a.setAttribute("href", url);
+    a.setAttribute("download", fileName);
+    document.body.append(a);
+    a.click();
+    document.body.removeChild(a);
+  });
 }
 /**
  * 初始化数据
@@ -192,9 +214,11 @@ getData(true);
 .el-row {
   margin-bottom: 20px;
 }
+
 .el-row:last-child {
   margin-bottom: 0;
 }
+
 .el-col {
   border-radius: 4px;
 }
