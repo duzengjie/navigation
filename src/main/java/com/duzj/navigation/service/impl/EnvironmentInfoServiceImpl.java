@@ -73,9 +73,8 @@ public class EnvironmentInfoServiceImpl extends ServiceImpl<EnvironmentInfoMappe
         List<EnvironmentUrlListDTO> environmentUrlListDTOS = selectAll();
 
         try (ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream(), UrlInfoExcelDTO.class).build()) {
-            response.reset();
             response.setCharacterEncoding("UTF-8");
-            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+            response.addHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
             response.setContentType("application/octet-stream");
 
             for (int i = 0; i < environmentUrlListDTOS.size(); i++) {
