@@ -16,7 +16,7 @@
         <el-dropdown-item @click="addTabDialogVisible = true">新增环境</el-dropdown-item>
         <el-dropdown-item @click="delTabDialogVisible = true">删除环境</el-dropdown-item>
         <el-dropdown-item @click="downloadAllByExcel">备份数据</el-dropdown-item>
-        <el-dropdown-item>恢复数据</el-dropdown-item>
+        <el-dropdown-item @click="uploadBackupRecoverByExcelDialogVisible = true">恢复数据</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -76,8 +76,36 @@
       </span>
     </template>
   </el-dialog>
+
+  <el-dialog v-model="uploadBackupRecoverByExcelDialogVisible" title="还原备份">
+    <el-upload
+    ref="uploadBackupRecover"
+    class="upload"
+    :http-request="uploadBackupRecoverByExcelAction"
+    :limit="1"
+    accept=".xlsx"
+    :auto-upload="false"
+  >
+    <template #trigger>
+      <el-button type="primary">文件选择</el-button>
+    </template>
+
+    <template #tip>
+      <div class="el-upload__tip text-red">
+        注意上传备份文件会将数据先清空
+      </div>
+    </template>
+  </el-upload>
+
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="uploadBackupRecoverByExcelDialogVisible = false">取消</el-button>
+        <el-button type="danger" @click="uploadBackupRecoverByExcel()">确认</el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
-<script  setup>
+<script  setup >
 import { ref, reactive } from "vue";
 import moment from 'moment';
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -93,10 +121,14 @@ const addCardDialogVisible = ref(false)
 const addTabDialogVisible = ref(false)
 //删除环境弹窗
 const delTabDialogVisible = ref(false)
+//上传备份文件弹窗
+const uploadBackupRecoverByExcelDialogVisible = ref(false)
 //新增卡片表单
 const addCardForm = reactive({ url: "http://" })
 //新增TAB
 const addTabForm = reactive({})
+//备份文件上传类
+const uploadBackupRecover = ref({})
 /**
  * 获取数据方法
  */
@@ -196,6 +228,40 @@ const downloadAllByExcel = () => {
     document.body.append(a);
     a.click();
     document.body.removeChild(a);
+  });
+}
+/**
+ * 确认上传
+ */
+const uploadBackupRecoverByExcel = () =>{
+  console.log("uploadBackupRecover.value",uploadBackupRecover.value)
+  uploadBackupRecover.value.submit()
+}
+/**
+ * 上传
+ * @param {*} param 
+ */
+const uploadBackupRecoverByExcelAction = (param) =>{
+  console.log('param',param)
+  let formData = new FormData()
+  formData.append('file', param.file)
+  requestService({
+    url: "/env/api/backupRecoverByExcel",
+    method: 'post',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    data: formData,
+    timeout: 300000
+  }).then(res => {
+    ElMessage.success('请求成功');
+    uploadBackupRecoverByExcelDialogVisible.value = false
+    getData(true);
+  }).catch((err) => {
+    ElMessage.success('异常:'+err);
+    uploadBackupRecoverByExcelDialogVisible.value = false
+    getData(true);
+    console.log(err);
   });
 }
 /**
