@@ -1,6 +1,6 @@
-![image](https://github.com/duzengjie/navigation/blob/main/file/主界面1.png)
-![image](https://github.com/duzengjie/navigation/blob/main/file/编辑界面.png)
-![image](https://github.com/duzengjie/navigation/blob/main/file/新增卡片按钮.png)
+![image](https://github.com/duzengjie/navigation/blob/main-multifunction/file/主界面1.png)
+![image](https://github.com/duzengjie/navigation/blob/main-multifunction/file/编辑界面.png)
+![image](https://github.com/duzengjie/navigation/blob/main-multifunction/file/新增卡片按钮.png)
 
 
 # 何如使用
