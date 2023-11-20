@@ -81,7 +81,7 @@ public class EnvironmentInfoController {
         environmentInfoService.downloadAllByExcel(response);
     }
 
-    @GetMapping(value = "/api/backupRecoverByExcel")
+    @PostMapping(value = "/api/backupRecoverByExcel")
     public ResultDTO<Boolean> backupRecoverByExcel(@RequestParam("file") MultipartFile file) {
         environmentInfoService.backupRecoverByExcel(file);
         return ResultDTO.success(true);

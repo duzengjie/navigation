@@ -104,13 +104,14 @@ public class EnvironmentInfoServiceImpl extends ServiceImpl<EnvironmentInfoMappe
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void backupRecoverByExcel(MultipartFile file) {
-        if (file.isEmpty()){
+        if (file.isEmpty()) {
             throw new SystemUserException("文件上传异常,文件为空");
         }
         UrlInfoDataListener urlInfoDataListener = new UrlInfoDataListener(urlInfoService);
         //清空数据
-        environmentInfoMapper.truncateTable();
-        urlInfoMapper.truncateTable();
+        environmentInfoMapper.delete(new QueryWrapper<>());
+        urlInfoMapper.delete(new QueryWrapper<>());
+        //插入数据
         try (InputStream inputStream = file.getInputStream()) {
             ExcelReader excelReader = EasyExcel.read(inputStream, UrlInfo.class, urlInfoDataListener).build();
             List<ReadSheet> sheets = excelReader.excelExecutor().sheetList();
@@ -129,7 +130,6 @@ public class EnvironmentInfoServiceImpl extends ServiceImpl<EnvironmentInfoMappe
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
 
