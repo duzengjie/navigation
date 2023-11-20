@@ -2,10 +2,6 @@
 ![image](https://github.com/duzengjie/navigation/blob/main-multifunction/file/编辑界面.png)
 ![image](https://github.com/duzengjie/navigation/blob/main-multifunction/file/新增卡片按钮.png)
 
-
-# 何如使用
-更改每个Tab页面的数据 位于public里面的data.json文件
-
 # 本地运行
 ```shell
 cd ./navigation
