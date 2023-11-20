@@ -139,7 +139,9 @@ const getData = (initFlag) => {
   }).then((res) => {
     editableTabs.value = res.data.data;
     if (initFlag) {
-      editableTabsValue.value = res.data.data[0].id
+      if(res.data.data[0]){
+        editableTabsValue.value = res.data.data[0].id
+      }
     }
   });
 }
@@ -254,12 +256,19 @@ const uploadBackupRecoverByExcelAction = (param) =>{
     data: formData,
     timeout: 300000
   }).then(res => {
-    ElMessage.success('请求成功');
     uploadBackupRecoverByExcelDialogVisible.value = false
-    getData(true);
+    uploadBackupRecover.value.clearFiles()
+    if(res.data.code == 200){
+      //ElMessage.success('请求成功');
+      getData(true);
+    }else{
+      ElMessage.error(res.data.msg);
+    }
   }).catch((err) => {
-    ElMessage.success('异常:'+err);
+    console.log(2222)
+    ElMessage.error('异常:'+err);
     uploadBackupRecoverByExcelDialogVisible.value = false
+    uploadBackupRecover.value.clearFiles()
     getData(true);
     console.log(err);
   });
