@@ -11,6 +11,8 @@ import com.duzj.navigation.entity.UrlInfo;
 */
 public interface UrlInfoMapper extends BaseMapper<UrlInfo> {
 
+    public void truncateTable();
+
 }
 
 

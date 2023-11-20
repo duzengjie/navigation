@@ -3,6 +3,7 @@ package com.duzj.navigation.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.duzj.navigation.entity.EnvironmentInfo;
 import com.duzj.navigation.entity.EnvironmentUrlListDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -22,4 +23,6 @@ public interface EnvironmentInfoService extends IService<EnvironmentInfo> {
     public List<EnvironmentUrlListDTO> selectAll();
 
     public void downloadAllByExcel(HttpServletResponse response);
+
+    public void backupRecoverByExcel(MultipartFile file);
 }

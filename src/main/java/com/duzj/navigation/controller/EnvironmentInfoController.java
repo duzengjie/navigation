@@ -1,16 +1,29 @@
 package com.duzj.navigation.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
+import com.alibaba.excel.read.metadata.ReadSheet;
 import com.duzj.navigation.entity.EnvironmentInfo;
 import com.duzj.navigation.entity.EnvironmentUrlListDTO;
+import com.duzj.navigation.entity.UrlInfo;
 import com.duzj.navigation.entity.base.ResultDTO;
 import com.duzj.navigation.entity.request.EnvironmentInfoRequest;
 import com.duzj.navigation.entity.response.EnvironmentUrlListResponse;
+import com.duzj.navigation.excel.UrlInfoDataListener;
+import com.duzj.navigation.exceptions.SystemUserException;
 import com.duzj.navigation.service.EnvironmentInfoService;
+import com.duzj.navigation.service.UrlInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +39,7 @@ public class EnvironmentInfoController {
 
     @Autowired
     private EnvironmentInfoService environmentInfoService;
+
 
     @GetMapping(value = "/api/list")
     public ResultDTO<List<EnvironmentUrlListResponse>> listApi() {
@@ -66,4 +80,11 @@ public class EnvironmentInfoController {
     public void downloadAllByExcel(HttpServletResponse response) {
         environmentInfoService.downloadAllByExcel(response);
     }
+
+    @GetMapping(value = "/api/backupRecoverByExcel")
+    public ResultDTO<Boolean> backupRecoverByExcel(@RequestParam("file") MultipartFile file) {
+        environmentInfoService.backupRecoverByExcel(file);
+        return ResultDTO.success(true);
+    }
+
 }

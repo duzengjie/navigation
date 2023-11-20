@@ -15,4 +15,8 @@
         id,name,create_time,
         update_time
     </sql>
+
+    <delete id="truncateTable">
+        truncate table environment_info
+    </delete>
 </mapper>

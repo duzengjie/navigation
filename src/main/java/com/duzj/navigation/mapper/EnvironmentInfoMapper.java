@@ -11,6 +11,8 @@ import com.duzj.navigation.entity.EnvironmentInfo;
 */
 public interface EnvironmentInfoMapper extends BaseMapper<EnvironmentInfo> {
 
+    public void truncateTable();
+
 }
 
 
