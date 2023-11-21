@@ -19,7 +19,4 @@
         remark,create_time,update_time,
         url_name
     </sql>
-    <delete id="truncateTable">
-        truncate table url_info
-    </delete>
 </mapper>

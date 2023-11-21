@@ -17,6 +17,9 @@ mybatis-plus:
     logic-delete-value: 0
     logic-not-delete-value: 1
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/navigation?serverTimezone=GMT&userSSL=false&characterEncoding=utf-8   #生产读写分离
     username: root
