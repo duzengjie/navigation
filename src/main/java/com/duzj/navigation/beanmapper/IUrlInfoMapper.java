@@ -1,7 +1,7 @@
 package com.duzj.navigation.beanmapper;
 
 import com.duzj.navigation.entity.UrlInfo;
-import com.duzj.navigation.entity.UrlInfoExcelDTO;
+import com.duzj.navigation.entity.dto.UrlInfoExcelDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

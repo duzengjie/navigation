@@ -2,11 +2,14 @@ package com.duzj.navigation.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.duzj.navigation.entity.UrlInfo;
+import com.duzj.navigation.entity.UrlInfoChangeLog;
 import com.duzj.navigation.entity.base.ResultDTO;
 import com.duzj.navigation.entity.request.UrlInfoRequest;
+import com.duzj.navigation.service.UrlInfoChangeLogService;
 import com.duzj.navigation.service.UrlInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -23,6 +26,8 @@ public class UrlInfoController {
 
     @Autowired
     private UrlInfoService urlInfoService;
+    @Autowired
+    private UrlInfoChangeLogService urlInfoChangeLogService;
 
     @GetMapping(value = "/api/list")
     public ResultDTO<List<UrlInfo>> listApi(int environmentId){
@@ -31,17 +36,35 @@ public class UrlInfoController {
         return ResultDTO.success(urlInfoService.list(urlInfoQueryWrapper));
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @GetMapping(value = "/api/delete")
     public ResultDTO<Boolean> deleteApi(int id){
+        //保存历史
+        UrlInfo urlInfoDB = urlInfoService.getById(id);
+        UrlInfoChangeLog urlInfoChangeLog = new UrlInfoChangeLog();
+        BeanUtils.copyProperties(urlInfoDB,urlInfoChangeLog);
+        urlInfoChangeLog.setOriginalId(id);
+        urlInfoChangeLog.setCreateTime(new Date());
+        urlInfoChangeLog.setId(null);
+        urlInfoChangeLogService.save(urlInfoChangeLog);
         return ResultDTO.success(urlInfoService.removeById(id));
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @PostMapping(value = "/api/update")
     public ResultDTO<Boolean> updateApi(@RequestBody UrlInfoRequest request){
         UrlInfo urlInfo = new UrlInfo();
         BeanUtils.copyProperties(request,urlInfo);
         urlInfo.setUpdateTime(new Date());
-        return ResultDTO.success( urlInfoService.updateById(urlInfo));
+        //保存历史
+        UrlInfo urlInfoDB = urlInfoService.getById(request.getId());
+        UrlInfoChangeLog urlInfoChangeLog = new UrlInfoChangeLog();
+        BeanUtils.copyProperties(urlInfoDB,urlInfoChangeLog);
+        urlInfoChangeLog.setOriginalId(request.getId());
+        urlInfoChangeLog.setCreateTime(new Date());
+        urlInfoChangeLog.setId(null);
+        urlInfoChangeLogService.save(urlInfoChangeLog);
+        return ResultDTO.success(urlInfoService.updateById(urlInfo));
     }
 
     @PostMapping(value = "/api/add")

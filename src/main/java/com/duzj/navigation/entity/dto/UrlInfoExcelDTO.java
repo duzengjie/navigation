@@ -1,4 +1,4 @@
-package com.duzj.navigation.entity;
+package com.duzj.navigation.entity.dto;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;

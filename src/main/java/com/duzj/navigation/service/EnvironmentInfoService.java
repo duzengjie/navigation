@@ -2,7 +2,7 @@ package com.duzj.navigation.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.duzj.navigation.entity.EnvironmentInfo;
-import com.duzj.navigation.entity.EnvironmentUrlListDTO;
+import com.duzj.navigation.entity.dto.EnvironmentUrlListDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;

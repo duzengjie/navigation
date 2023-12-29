@@ -1,5 +1,6 @@
-package com.duzj.navigation.entity;
+package com.duzj.navigation.entity.dto;
 
+import com.duzj.navigation.entity.UrlInfo;
 import lombok.Data;
 
 import java.util.List;
