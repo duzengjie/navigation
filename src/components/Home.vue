@@ -140,6 +140,7 @@ const getData = (initFlag) => {
     editableTabs.value = res.data.data;
     if (initFlag) {
       if(res.data.data[0]){
+        //console.info('初始化的时候',res.data.data[0].id)
         editableTabsValue.value = res.data.data[0].id
       }
     }
@@ -188,7 +189,7 @@ const addTab = () => {
     //重置
     addTabForm.name = null
     //刷新页面
-    getData();
+    getData(true);
   });
 }
 /**
