@@ -29,6 +29,10 @@
       <el-form-item label="备注">
         <el-input v-model="form.remark" type="textarea" />
       </el-form-item>
+
+      <el-form-item label="排序">
+        <el-input v-model="form.orderNum" type="number" />
+      </el-form-item>
     </el-form>
     <template #footer>
       <el-row class="row-bg" justify="space-between">
@@ -58,9 +62,16 @@ const props = defineProps({
   url: String,
   name: String,
   remark: String,
+  orderNum: Number
 });
 
-const form = reactive({ id: props.id, url: props.url, remark: props.remark, urlName: props.name })
+const form = reactive({ 
+  id: props.id, 
+  url: props.url, 
+  remark: props.remark, 
+  urlName: props.name,
+  orderNum: props.orderNum
+})
 
 /**
  * 跳转链接
@@ -88,7 +99,7 @@ const updateCard = () => {
   requestService({
     url: "/url/api/update",
     method: 'post',
-    data: { id: form.id, url: form.url, remark: form.remark, urlName: form.urlName }
+    data: { id: form.id, url: form.url, remark: form.remark, urlName: form.urlName,orderNum:form.orderNum }
   }).then((res) => {
     if (res.data.data == true) {
       ElMessage({ message: '更新成功', type: 'success' })

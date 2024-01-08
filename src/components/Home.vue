@@ -3,7 +3,7 @@
     <el-tab-pane :label="item.name" :name="item.id" v-for="item in editableTabs" :key="item.id">
       <el-row :gutter="20">
         <el-col :span="6" v-for="url in item.data" :key="url.name">
-          <Card :name="url.urlName" :remark="url.remark" :url="url.url" :id="url.id" @refresh-parent-page="getData" />
+          <Card :name="url.urlName" :remark="url.remark" :url="url.url" :id="url.id" :orderNum="url.orderNum" @refresh-parent-page="getData" />
         </el-col>
       </el-row>
     </el-tab-pane>
@@ -33,6 +33,10 @@
 
       <el-form-item label="备注">
         <el-input v-model="addCardForm.remark" type="textarea" />
+      </el-form-item>
+
+      <el-form-item label="排序">
+        <el-input v-model="addCardForm.orderNum" type="number" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -153,7 +157,11 @@ const addCard = () => {
   requestService({
     url: "/url/api/add",
     method: 'post',
-    data: { environmentId: editableTabsValue.value, url: addCardForm.url, remark: addCardForm.remark, urlName: addCardForm.urlName }
+    data: { environmentId: editableTabsValue.value, 
+    url: addCardForm.url, 
+    remark: addCardForm.remark, 
+    urlName: addCardForm.urlName,
+    orderNum: addCardForm.orderNum }
   }).then((res) => {
     if (res.data.data == true) {
       ElMessage({ message: '新增成功', type: 'success' })
@@ -166,6 +174,7 @@ const addCard = () => {
     addCardForm.url = "http://"
     addCardForm.remark = null
     addCardForm.urlName = null
+    addCardForm.orderNum = null
     //刷新页面
     getData();
   });
