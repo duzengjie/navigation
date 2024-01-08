@@ -11,12 +11,13 @@
             <result property="urlName" column="url_name" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,original_id,environment_id,
         url_name,url,remark,
-        create_time
+        order_num,create_time
     </sql>
 </mapper>

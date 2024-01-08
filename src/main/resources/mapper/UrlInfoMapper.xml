@@ -7,16 +7,17 @@
     <resultMap id="BaseResultMap" type="com.duzj.navigation.entity.UrlInfo">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="environmentId" column="environment_id" jdbcType="INTEGER"/>
+            <result property="urlName" column="url_name" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="urlName" column="url_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,environment_id,url,
-        remark,create_time,update_time,
-        url_name
+        id,environment_id,url_name,
+        url,remark,order_num,
+        create_time,update_time
     </sql>
 </mapper>

@@ -52,6 +52,12 @@ public class UrlInfoChangeLog implements Serializable {
     private String remark;
 
     /**
+     * 排序,数字越小展示越靠前
+     */
+    @TableField(value = "order_num")
+    private Integer orderNum;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time")

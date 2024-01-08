@@ -28,6 +28,12 @@ public class UrlInfo implements Serializable {
     private Integer environmentId;
 
     /**
+     * url名称
+     */
+    @TableField(value = "url_name")
+    private String urlName;
+
+    /**
      * 地址
      */
     @TableField(value = "url")
@@ -40,6 +46,12 @@ public class UrlInfo implements Serializable {
     private String remark;
 
     /**
+     * 排序,数字越小展示越靠前
+     */
+    @TableField(value = "order_num")
+    private Integer orderNum;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time")
@@ -50,12 +62,6 @@ public class UrlInfo implements Serializable {
      */
     @TableField(value = "update_time")
     private Date updateTime;
-
-    /**
-     * url名称
-     */
-    @TableField(value = "url_name")
-    private String urlName;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

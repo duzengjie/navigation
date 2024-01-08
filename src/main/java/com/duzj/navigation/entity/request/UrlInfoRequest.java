@@ -31,4 +31,9 @@ public class UrlInfoRequest {
      * url名称
      */
     private String urlName;
+
+    /**
+     * 排序
+     */
+    private Integer orderNum;
 }
