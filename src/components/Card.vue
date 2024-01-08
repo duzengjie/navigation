@@ -147,7 +147,6 @@ const deleteCard = () => {
 
 .box-card {
   margin-top: 20px;
-  width: 400px;
 }
 
 
