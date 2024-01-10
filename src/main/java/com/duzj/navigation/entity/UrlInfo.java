@@ -52,6 +52,12 @@ public class UrlInfo implements Serializable {
     private Integer orderNum;
 
     /**
+     * 使用次数
+     */
+    @TableField(value = "use_num")
+    private Integer useNum;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time")

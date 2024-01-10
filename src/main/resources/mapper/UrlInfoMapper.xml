@@ -11,6 +11,7 @@
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
             <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+            <result property="useNum" column="use_num" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -18,6 +19,10 @@
     <sql id="Base_Column_List">
         id,environment_id,url_name,
         url,remark,order_num,
-        create_time,update_time
+        use_num,create_time,update_time
     </sql>
+
+    <update id="useNumIncrease" parameterType="int">
+        update url_info  set use_num = use_num + 1 where id = #{id};
+    </update>
 </mapper>

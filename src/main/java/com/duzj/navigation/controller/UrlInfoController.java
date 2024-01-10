@@ -74,4 +74,9 @@ public class UrlInfoController {
         urlInfo.setCreateTime(new Date());
         return ResultDTO.success( urlInfoService.save(urlInfo));
     }
+
+    @PostMapping(value = "/api/ysj")
+    public ResultDTO<Boolean> useNumIncrease(@RequestBody UrlInfoRequest request){
+        return ResultDTO.success( urlInfoService.useNumIncrease(request.getId()));
+    }
 }

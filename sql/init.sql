@@ -39,3 +39,9 @@ CREATE TABLE `url_info_change_log` (
                                        `create_time` datetime DEFAULT NULL COMMENT '创建时间',
                                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='链接信息修改记录';
+-- 01.10 新增 使用次数
+
+ALTER TABLE navigation.url_info ADD use_num int NULL COMMENT '使用次数';
+ALTER TABLE navigation.url_info CHANGE use_num use_num int NULL COMMENT '使用次数' AFTER order_num;
+
+update url_info  set use_num = 0;
