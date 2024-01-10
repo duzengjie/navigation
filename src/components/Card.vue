@@ -77,7 +77,14 @@ const form = reactive({
  * 跳转链接
  */
 const jump = () => {
-  window.open(props.url, "_blank")
+  //请求记录下次数
+  requestService({
+    url: "/url/api/useNumIncrease",
+    method: 'post',
+    data: { id: form.id }
+  }).then((res) => {
+    window.open(props.url, "_blank")
+  });
 };
 /**
  * 备注弹出提示
