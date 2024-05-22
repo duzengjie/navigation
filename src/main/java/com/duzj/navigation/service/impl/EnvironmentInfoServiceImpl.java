@@ -68,7 +68,7 @@ public class EnvironmentInfoServiceImpl extends ServiceImpl<EnvironmentInfoMappe
             EnvironmentUrlListDTO environmentUrlListDTO = new EnvironmentUrlListDTO();
             QueryWrapper<UrlInfo> urlInfoQueryWrapper = new QueryWrapper<>();
             urlInfoQueryWrapper.eq("environment_id", environmentInfo.getId());
-            urlInfoQueryWrapper.orderByDesc("order_num");
+            urlInfoQueryWrapper.orderByDesc("use_num");
             environmentUrlListDTO.setId(environmentInfo.getId());
             environmentUrlListDTO.setName(environmentInfo.getName());
             environmentUrlListDTO.setData(urlInfoService.list(urlInfoQueryWrapper));
