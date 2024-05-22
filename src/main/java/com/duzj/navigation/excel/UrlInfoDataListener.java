@@ -2,13 +2,12 @@ package com.duzj.navigation.excel;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
-import com.alibaba.excel.read.metadata.ReadSheet;
-import com.alibaba.excel.read.metadata.holder.ReadHolder;
 import com.alibaba.excel.util.ListUtils;
 import com.duzj.navigation.entity.UrlInfo;
+import com.duzj.navigation.entity.dto.UrlInfoExcelDTO;
 import com.duzj.navigation.service.UrlInfoService;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 
@@ -18,12 +17,12 @@ import java.util.List;
  * @Created by duzengjie
  */
 @Slf4j
-public class UrlInfoDataListener implements ReadListener<UrlInfo> {
+public class UrlInfoDataListener implements ReadListener<UrlInfoExcelDTO> {
 
     /**
      * 每隔5条存储数据库，实际使用中可以100条，然后清理list ，方便内存回收
      */
-    private static final int BATCH_COUNT = 1;
+    private static final int BATCH_COUNT = 100;
 
     private UrlInfoService urlInfoService;
 
@@ -35,8 +34,10 @@ public class UrlInfoDataListener implements ReadListener<UrlInfo> {
 
 
     @Override
-    public void invoke(UrlInfo urlInfo, AnalysisContext analysisContext) {
-        log.info("解析到一条数据:{}", urlInfo);
+    public void invoke(UrlInfoExcelDTO urlInfoExcelDTO, AnalysisContext analysisContext) {
+        log.info("解析到一条数据:{}", urlInfoExcelDTO);
+        UrlInfo urlInfo = new UrlInfo();
+        BeanUtils.copyProperties(urlInfoExcelDTO, urlInfo);
         cachedDataList.add(urlInfo);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (cachedDataList.size() >= BATCH_COUNT) {

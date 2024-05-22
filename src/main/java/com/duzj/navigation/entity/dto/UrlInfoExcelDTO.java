@@ -26,28 +26,18 @@ public class UrlInfoExcelDTO {
     @ExcelProperty("链接")
     private String url;
 
-    /**
-     * 备注
-     */
     @ExcelProperty("备注")
     private String remark;
 
-    /**
-     * 创建时间
-     */
-    @ExcelProperty("创建时间")
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @ExcelProperty("更新时间")
-    private Date updateTime;
-
-    /**
-     * url名称
-     */
     @ExcelProperty("链接名称")
     private String urlName;
 
+    @ExcelProperty("使用次数")
+    private Integer useNum;
+
+    @ExcelProperty("创建时间")
+    private Date createTime;
+
+    @ExcelProperty("更新时间")
+    private Date updateTime;
 }

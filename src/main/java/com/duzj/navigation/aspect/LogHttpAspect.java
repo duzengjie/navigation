@@ -23,8 +23,14 @@ import java.util.List;
 @Component
 public class LogHttpAspect {
 
-    private static final List<String> excludeResApi = Lists.newArrayList("downloadAllByExcel");
-    private static final List<String> excludeReqApi = Lists.newArrayList("backupRecoverByExcel");
+    /**
+     * 请求
+     */
+    private static final List<String> excludeResApi = Lists.newArrayList("backupRecoverByExcel", "downloadAllByExcel");
+    /**
+     * 返回
+     */
+    private static final List<String> excludeReqApi = Lists.newArrayList("backupRecoverByExcel", "downloadAllByExcel");
 
     @Pointcut("execution(* com.duzj.navigation.controller..*.*(..)))")
     public void LogHttpAspect(){

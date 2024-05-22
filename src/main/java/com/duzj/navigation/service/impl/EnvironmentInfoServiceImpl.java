@@ -10,8 +10,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.duzj.navigation.beanmapper.IUrlInfoMapper;
 import com.duzj.navigation.entity.EnvironmentInfo;
-import com.duzj.navigation.entity.dto.EnvironmentUrlListDTO;
 import com.duzj.navigation.entity.UrlInfo;
+import com.duzj.navigation.entity.dto.EnvironmentUrlListDTO;
 import com.duzj.navigation.entity.dto.UrlInfoExcelDTO;
 import com.duzj.navigation.excel.UrlInfoDataListener;
 import com.duzj.navigation.exceptions.SystemUserException;
@@ -112,7 +112,7 @@ public class EnvironmentInfoServiceImpl extends ServiceImpl<EnvironmentInfoMappe
         urlInfoMapper.delete(new QueryWrapper<>());
         //插入数据
         try (InputStream inputStream = file.getInputStream()) {
-            ExcelReader excelReader = EasyExcel.read(inputStream, UrlInfo.class, urlInfoDataListener).build();
+            ExcelReader excelReader = EasyExcel.read(inputStream, UrlInfoExcelDTO.class, urlInfoDataListener).build();
             List<ReadSheet> sheets = excelReader.excelExecutor().sheetList();
             for (ReadSheet sheet : sheets) {
                 String[] split = sheet.getSheetName().split("-");
