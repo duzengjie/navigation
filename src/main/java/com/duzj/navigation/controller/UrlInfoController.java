@@ -71,6 +71,12 @@ public class UrlInfoController {
     public ResultDTO<Boolean> addApi(@RequestBody UrlInfoRequest request){
         UrlInfo urlInfo = new UrlInfo();
         BeanUtils.copyProperties(request,urlInfo);
+        if(urlInfo.getOrderNum() == null){
+            urlInfo.setOrderNum(0);
+        }
+        if(urlInfo.getUseNum() == null){
+            urlInfo.setUseNum(0);
+        }
         urlInfo.setCreateTime(new Date());
         return ResultDTO.success( urlInfoService.save(urlInfo));
     }

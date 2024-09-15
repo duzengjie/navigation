@@ -1,6 +1,7 @@
 package com.duzj.navigation.aspect;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.duzj.navigation.exceptions.SystemUserException;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -56,7 +57,7 @@ public class LogHttpAspect {
                  log.info("{}接口返回:{}",name, JSONObject.toJSONString(proceed));
              }
         } catch (Throwable e) {
-            throw new RuntimeException(e);
+            throw new SystemUserException(e.getMessage());
         }
         return proceed;
     }

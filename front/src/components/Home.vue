@@ -209,13 +209,13 @@ const delTab = () => {
     url: "/env/api/delete?id=" + editableTabsValue.value,
     method: 'get',
   }).then((res) => {
-    if (res.data.data == true) {
+    if (res.data.data === true) {
       ElMessage({ message: '删除成功', type: 'success' })
       delTabDialogVisible.value = false
       //刷新页面
       getData(true);
     } else {
-      ElMessage(res.data.msg)
+      ElMessage( { message:res.data.msg, type: 'error' })
       //关闭弹窗
       delTabDialogVisible.value = false
     }
