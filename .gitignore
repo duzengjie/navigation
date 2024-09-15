@@ -31,3 +31,28 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Logs
+/front/logs
+/front/*.log
+/front/npm-debug.log*
+/front/yarn-debug.log*
+/front/yarn-error.log*
+/front/pnpm-debug.log*
+/front/lerna-debug.log*
+
+/front/node_modules
+/front/dist
+/front/dist-ssr
+/front/*.local
+
+# Editor directories and files
+/front/.vscode/*
+/front/!.vscode/extensions.json
+/front/.DS_Store
+/front/*.suo
+/front/*.ntvs*
+/front/*.njsproj
+/front/*.sln
+/front/*.sw?

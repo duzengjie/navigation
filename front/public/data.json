@@ -1,0 +1,17 @@
+[
+   {
+    "data":[{ "name": "测试", "remark": "账号/密码", "url": "https://www.baidu.com" }],
+    "name":"testing",
+    "label":"测试"
+   },
+   {
+    "data":[{ "name": "模板", "remark": "账号/密码", "url": "https://www.baidu.com" }],
+    "name":"release",
+    "label":"模板"
+   },
+   {
+    "data":[{ "name": "生产", "remark": "账号/密码", "url": "https://www.baidu.com" }],
+    "name":"product",
+    "label":"生产"
+   }
+]

@@ -1,0 +1,22 @@
+{
+  "name": "navigation",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "element-plus": "^2.3.14",
+    "moment": "^2.29.4",
+    "vue": "^3.3.4",
+    "vue-axios": "^3.5.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.4.5"
+  }
+}
