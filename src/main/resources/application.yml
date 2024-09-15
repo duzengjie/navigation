@@ -1,7 +1,5 @@
 server:
-  port: 9077
-  servlet:
-    context-path: /navigation
+  port: 8888
 mybatis-plus:
   #打印sql
   configuration:
@@ -17,6 +15,11 @@ mybatis-plus:
     logic-delete-value: 0
     logic-not-delete-value: 1
 spring:
+  # 打成jar包必须添加如下配置才能找到页面
+  thymeleaf:
+    mode: HTML
+    cache: false
+    prefix: classpath:/templates
   servlet:
     multipart:
       max-file-size: 10MB
