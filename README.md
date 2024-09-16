@@ -9,9 +9,9 @@ datasource.username
 datasource.password
 
 # 前端项目
-![image](https://github.com/duzengjie/navigation/tree/main/front/file/主界面1.png)
-![image](https://github.com/duzengjie/navigation/tree/main/front/file/编辑界面.png)
-![image](https://github.com/duzengjie/navigation/tree/main/front/file/新增卡片按钮.png)
+![image](https://github.com/duzengjie/navigation/blob/main/file/主界面1.png)
+![image](https://github.com/duzengjie/navigation/blob/main/file/编辑界面.png)
+![image](https://github.com/duzengjie/navigation/blob/main/file/新增卡片按钮.png)
 
 ## 本地运行
 ```shell
