@@ -29,3 +29,10 @@ pnpm run dev
 # 打包
 1. 修改生产数据库配置
 2. 运行PackageAll.main
+3. 打包文件在target下  navigation.jar  
+
+# 部署
+前提得初始化mysql
+```shell
+java -jar navigation.jar 
+```
