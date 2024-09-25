@@ -20,12 +20,12 @@ public class PackageAll {
      * @param path
      */
     private static void packageMac(String path){
-        System.out.println("Project path: " + path);
+        System.out.println("mac环境 项目根路径: " + path);
 
         String exec = "pnpm --prefix " + path + "/front" + " run build";
-        System.out.println(exec);
-        String s = RuntimeUtil.execForStr(exec);
-        System.out.println(s);
+        System.out.println("mac环境 执行前端打包命令:" + exec);
+        System.out.println(RuntimeUtil.execForStr(exec));
+        System.out.println("mac环境 前端打包完成");
 
         String indexHtmlPath = path + "/front/dist/index.html";
         String assetsPath = path + "/front/dist/assets";
@@ -56,6 +56,12 @@ public class PackageAll {
 
         replaceTextInFile(indexHtmlPathTarget + "/index.html", "/navigation.svg", "/back/navigation.svg");
 
+        System.out.println("mac环境 前端包合并到后端resource");
+
+        exec = "mvn clean package -DoutputDirectory=" + path;
+        System.out.println("mac环境 执行后端打包命令:" + exec);
+        RuntimeUtil.execForStr(exec);
+        System.out.println("mac环境 后端包打包完成");
     }
 
     /**
