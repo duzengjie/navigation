@@ -25,8 +25,8 @@ spring:
       max-file-size: 10MB
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/navigation?serverTimezone=GMT&userSSL=false&characterEncoding=utf-8   #生产读写分离
-    username: root
-    password: 123456
+    username: navigation
+    password: Abcd.1234
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       auto-commit: true
