@@ -24,7 +24,7 @@ spring:
     multipart:
       max-file-size: 10MB
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/navigation?serverTimezone=GMT&userSSL=false&characterEncoding=utf-8   #生产读写分离
+    url: jdbc:mysql://ubuntu:3306/navigation?serverTimezone=GMT&userSSL=false&characterEncoding=utf-8   #生产读写分离
     username: navigation
     password: Navigation@2024
     driver-class-name: com.mysql.cj.jdbc.Driver
