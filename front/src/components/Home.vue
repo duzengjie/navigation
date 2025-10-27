@@ -163,7 +163,7 @@ const addCard = () => {
     urlName: addCardForm.urlName,
     orderNum: addCardForm.orderNum }
   }).then((res) => {
-    if (res.data.data == true) {
+    if (res.data.data === true) {
       ElMessage({ message: '新增成功', type: 'success' })
     } else {
       ElMessage(res.data.msg)
