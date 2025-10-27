@@ -6,6 +6,7 @@ import com.alibaba.excel.util.ListUtils;
 import com.duzj.navigation.entity.UrlInfo;
 import com.duzj.navigation.entity.dto.UrlInfoExcelDTO;
 import com.duzj.navigation.service.UrlInfoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @Created by duzengjie
  */
 @Slf4j
+@RequiredArgsConstructor
 public class UrlInfoDataListener implements ReadListener<UrlInfoExcelDTO> {
 
     /**
@@ -24,14 +26,9 @@ public class UrlInfoDataListener implements ReadListener<UrlInfoExcelDTO> {
      */
     private static final int BATCH_COUNT = 100;
 
-    private UrlInfoService urlInfoService;
-
-    public UrlInfoDataListener(UrlInfoService urlInfoService) {
-        this.urlInfoService = urlInfoService;
-    }
+    private final UrlInfoService urlInfoService;
 
     private List<UrlInfo> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
-
 
     @Override
     public void invoke(UrlInfoExcelDTO urlInfoExcelDTO, AnalysisContext analysisContext) {

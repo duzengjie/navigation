@@ -6,6 +6,7 @@ import com.duzj.navigation.entity.base.ResultDTO;
 import com.duzj.navigation.entity.request.EnvironmentInfoRequest;
 import com.duzj.navigation.entity.response.EnvironmentUrlListResponse;
 import com.duzj.navigation.service.EnvironmentInfoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +24,10 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/env")
+@RequiredArgsConstructor
 public class EnvironmentInfoController {
 
-    @Autowired
-    private EnvironmentInfoService environmentInfoService;
-
+    private final EnvironmentInfoService environmentInfoService;
 
     @GetMapping(value = "/api/list")
     public ResultDTO<List<EnvironmentUrlListResponse>> listApi() {
