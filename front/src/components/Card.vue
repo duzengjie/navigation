@@ -109,7 +109,7 @@ const updateCard = () => {
     method: 'post',
     data: { id: form.id, url: form.url, remark: form.remark, urlName: form.urlName,orderNum:form.orderNum }
   }).then((res) => {
-    if (res.data.data == true) {
+    if (res.data.data === true) {
       ElMessage({ message: '更新成功', type: 'success' })
     } else {
       ElMessage(res.data.msg)
@@ -126,7 +126,7 @@ const deleteCard = () => {
     url: "/url/api/delete?id=" + form.id,
     method: 'get'
   }).then((res) => {
-    if (res.data.data == true) {
+    if (res.data.data === true) {
       ElMessage({ message: '删除成功', type: 'success' })
     } else {
       ElMessage(res.data.msg)

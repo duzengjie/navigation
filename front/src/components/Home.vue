@@ -163,7 +163,7 @@ const addCard = () => {
     urlName: addCardForm.urlName,
     orderNum: addCardForm.orderNum }
   }).then((res) => {
-    if (res.data.data == true) {
+    if (res.data.data === true) {
       ElMessage({ message: '新增成功', type: 'success' })
     } else {
       ElMessage(res.data.msg)
@@ -188,7 +188,7 @@ const addTab = () => {
     method: 'post',
     data: { name: addTabForm.name }
   }).then((res) => {
-    if (res.data.data == true) {
+    if (res.data.data === true) {
       ElMessage({ message: '新增成功', type: 'success' })
     } else {
       ElMessage(res.data.msg)
@@ -268,14 +268,13 @@ const uploadBackupRecoverByExcelAction = (param) =>{
   }).then(res => {
     uploadBackupRecoverByExcelDialogVisible.value = false
     uploadBackupRecover.value.clearFiles()
-    if(res.data.code == 200){
+    if(res.data.code === 200){
       //ElMessage.success('请求成功');
       getData(true);
     }else{
       ElMessage.error(res.data.msg);
     }
   }).catch((err) => {
-    console.log(2222)
     ElMessage.error('异常:'+err);
     uploadBackupRecoverByExcelDialogVisible.value = false
     uploadBackupRecover.value.clearFiles()
