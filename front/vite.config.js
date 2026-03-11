@@ -11,9 +11,12 @@ export default ({ mode }) => ({
   base: process.env.VITE_BASE_PATH,
   // 用于放置生成的静态资源 (js、css、img、fonts) 的；（项目打包之后，静态资源会放在这个文件夹下）
   //npmassetsDir: "static",
-  devServer: {
+  server: {
     proxy: {
-      '/navigation': 'http://localhost:9077'
+      '/navigation': {
+        target: 'http://localhost:8888',
+        changeOrigin: true
+      }
     }
   }
 });
