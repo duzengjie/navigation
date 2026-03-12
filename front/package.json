@@ -9,8 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
     "axios": "^1.5.0",
-    "element-plus": "^2.3.14",
+    "element-plus": "^2.13.5",
     "moment": "^2.29.4",
     "vue": "^3.3.4",
     "vue-axios": "^3.5.2"
