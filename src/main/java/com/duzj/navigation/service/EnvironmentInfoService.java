@@ -5,7 +5,7 @@ import com.duzj.navigation.entity.EnvironmentInfo;
 import com.duzj.navigation.entity.dto.EnvironmentUrlListDTO;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

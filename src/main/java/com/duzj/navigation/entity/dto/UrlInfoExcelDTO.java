@@ -1,6 +1,6 @@
 package com.duzj.navigation.entity.dto;
 
-import com.alibaba.excel.annotation.ExcelProperty;
+import org.apache.fesod.sheet.annotation.ExcelProperty;
 import lombok.Data;
 
 import java.util.Date;

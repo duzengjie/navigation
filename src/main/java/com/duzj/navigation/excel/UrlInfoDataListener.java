@@ -1,15 +1,16 @@
 package com.duzj.navigation.excel;
 
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.read.listener.ReadListener;
-import com.alibaba.excel.util.ListUtils;
+
 import com.duzj.navigation.entity.UrlInfo;
 import com.duzj.navigation.entity.dto.UrlInfoExcelDTO;
 import com.duzj.navigation.service.UrlInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.fesod.sheet.context.AnalysisContext;
+import org.apache.fesod.sheet.read.listener.ReadListener;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,13 +23,13 @@ import java.util.List;
 public class UrlInfoDataListener implements ReadListener<UrlInfoExcelDTO> {
 
     /**
-     * 每隔5条存储数据库，实际使用中可以100条，然后清理list ，方便内存回收
+     * 每隔100条存储数据库，实际使用中可以100条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 100;
 
     private final UrlInfoService urlInfoService;
 
-    private List<UrlInfo> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
+    private List<UrlInfo> cachedDataList = new ArrayList<>(BATCH_COUNT);
 
     @Override
     public void invoke(UrlInfoExcelDTO urlInfoExcelDTO, AnalysisContext analysisContext) {
@@ -40,7 +41,7 @@ public class UrlInfoDataListener implements ReadListener<UrlInfoExcelDTO> {
         if (cachedDataList.size() >= BATCH_COUNT) {
             saveData();
             // 存储完成清理 list
-            cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
+            cachedDataList = new ArrayList<>(BATCH_COUNT);
         }
     }
 
